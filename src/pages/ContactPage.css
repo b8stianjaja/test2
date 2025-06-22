@@ -1,0 +1,103 @@
+/* src/pages/ContactPage.css */
+.contact-page .contact-intro,
+.contact-page .alternative-contact {
+  text-align: center;
+  color: #a0aec0;
+  margin-bottom: 2rem;
+  font-size: 1.05rem;
+}
+.contact-page .alternative-contact {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(71, 85, 105, 0.3);
+}
+.contact-page .alternative-contact h3 {
+    color: #a3bfef;
+    margin-bottom: 0.75rem;
+}
+
+
+.contact-form {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: rgba(17, 24, 39, 0.7);
+  border-radius: 10px;
+  border: 1px solid rgba(71, 85, 105, 0.3);
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #a3bfef;
+  font-weight: 500;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid rgba(71, 85, 105, 0.7);
+  border-radius: 6px;
+  background-color: rgba(10, 15, 25, 0.8); /* Darker input background */
+  color: #e2e8f0;
+  font-size: 1rem;
+  box-sizing: border-box; /* Important for width 100% */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="email"]:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #81e6d9; /* Thematic focus color */
+  box-shadow: 0 0 0 3px rgba(129, 230, 217, 0.2);
+}
+
+.form-group textarea {
+  resize: vertical; /* Allow vertical resize */
+  min-height: 120px;
+}
+
+.submit-button { /* Uses .cta-button styles from HomePage.css if imported or global */
+  display: block;
+  width: 100%;
+  /* If .cta-button is not global, copy its styles here */
+  /* Example:
+    padding: 12px 30px;
+    background-color: rgba(129, 230, 217, 0.8);
+    color: #1a202c;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 10px rgba(129, 230, 217, 0.3);
+    border: none;
+    cursor: pointer;
+  */
+}
+.submit-button:hover {
+  /* background-color: #81e6d9;
+     transform: translateY(-2px); */
+}
+
+.submission-success {
+  text-align: center;
+  padding: 2rem;
+  background-color: rgba(129, 230, 217, 0.1); /* Success feedback color */
+  border: 1px solid #81e6d9;
+  border-radius: 8px;
+  color: #c9d2ff;
+  max-width: 600px;
+  margin: 2rem auto;
+}
+.submission-success p {
+  margin: 0;
+  font-size: 1.1rem;
+}

@@ -1,0 +1,54 @@
+/* src/pages/BeatsCatalogPage.css */
+
+
+.catalog-controls {
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.search-bar {
+  padding: 12px 18px;
+  width: 100%;
+  max-width: 500px;
+  border: 1px solid rgba(71, 85, 105, 0.7); /* Theme border */
+  border-radius: 8px;
+  background-color: rgba(17, 24, 39, 0.8); /* Darker, slightly transparent input bg */
+  color: #e2e8f0;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search-bar:focus {
+  border-color: #81e6d9; /* Thematic focus color */
+  box-shadow: 0 0 0 3px rgba(129, 230, 217, 0.3);
+}
+
+.beats-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Center cards if they don't fill the row */
+  gap: 15px; /* This creates space around cards, complements card margin */
+  margin: 0 auto; /* Center the grid itself */
+}
+
+.no-beats-message {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #a0aec0;
+  padding: 2rem;
+}
+
+.pagination-controls {
+  text-align: center;
+  margin-top: 2rem;
+  color: #a0aec0;
+}
+
+/* Hidden audio player - we control it via JavaScript */
+#page-audio-player {
+  display: none;
+}

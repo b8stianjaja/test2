@@ -1,0 +1,115 @@
+/* src/components/common/BeatCard.css */
+.beat-card {
+  background-color: rgba(30, 41, 59, 0.7); /* Dark slate, semi-transparent */
+  border: 1px solid rgba(71, 85, 105, 0.5); /* Slightly lighter border */
+  border-radius: 12px; /* More rounded, modern feel */
+  overflow: hidden;
+  margin: 15px;
+  width: 280px; /* Adjust as needed */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  color: #e2e8f0; /* Light text */
+  display: flex;
+  flex-direction: column;
+}
+
+.beat-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 8px 25px rgba(0, 183, 255, 0.2); /* Thematic glow on hover */
+}
+
+.beat-card-artwork-container {
+  position: relative;
+  width: 100%;
+  padding-top: 100%; /* 1:1 Aspect Ratio */
+  overflow: hidden; /* Ensure image doesn't spill */
+}
+
+.beat-card-artwork {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the image covers the area, might crop */
+  transition: transform 0.3s ease;
+}
+
+.beat-card:hover .beat-card-artwork {
+  transform: scale(1.1);
+}
+
+.play-pause-button-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0; /* Hidden by default */
+  transition: opacity 0.3s ease, background-color 0.3s ease;
+  z-index: 2;
+}
+
+.beat-card-artwork-container:hover .play-pause-button-overlay {
+  opacity: 1; /* Show on hover */
+}
+
+.play-pause-button-overlay:hover {
+  background-color: rgba(0, 120, 180, 0.8); /* Thematic hover color */
+}
+
+.play-pause-button-overlay svg {
+  width: 28px; /* Adjust icon size */
+  height: 28px;
+}
+
+.beat-card-info {
+  padding: 15px;
+  text-align: left;
+  flex-grow: 1; /* Allows info to take remaining space */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Pushes footer to bottom */
+}
+
+.beat-card-title {
+  font-size: 1.25rem;
+  margin-bottom: 8px;
+  color: #f0f4f8; /* Brighter title */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.beat-card-details,
+.beat-card-genre {
+  font-size: 0.85rem;
+  color: #a0aec0; /* Muted details */
+  margin-bottom: 6px;
+}
+
+.beat-card-details span {
+  margin-right: 8px;
+}
+
+.beat-card-footer {
+  margin-top: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.beat-card-price {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #81e6d9; /* A vibrant, thematic price color */
+}

@@ -1,0 +1,83 @@
+/* src/pages/ArtistProfilePage.css */
+.artist-profile-page .profile-section {
+  background-color: rgba(17, 24, 39, 0.6); /* Slightly different panel bg for variety */
+  padding: 2rem;
+  margin-bottom: 2rem;
+  border-radius: 10px;
+  border: 1px solid rgba(71, 85, 105, 0.3);
+}
+
+.artist-profile-page .profile-section h2 {
+  font-size: 1.75rem;
+  color: #a3bfef;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid rgba(128, 178, 255, 0.2);
+  padding-bottom: 0.5rem;
+}
+
+.artist-profile-page .profile-section p {
+  color: #c5d3e6;
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+.artist-bio {
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  gap: 2rem;
+  align-items: flex-start; /* Align items at the start */
+}
+
+.profile-image-container {
+  flex-shrink: 0; /* Prevent image from shrinking too much */
+  /* Consider a fixed width or max-width */
+}
+
+.artist-image {
+  width: 200px; /* Adjust as needed */
+  height: 200px;
+  object-fit: cover;
+  border-radius: 50%; /* Circular image */
+  border: 3px solid rgba(128, 178, 255, 0.3);
+  box-shadow: 0 0 15px rgba(128, 178, 255, 0.2);
+}
+
+.bio-content {
+  flex-grow: 1;
+}
+
+.social-links-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center; /* Center links */
+}
+
+.social-link {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: rgba(129, 230, 217, 0.1);
+  color: #81e6d9;
+  border: 1px solid #81e6d9;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.social-link:hover {
+  background-color: #81e6d9;
+  color: #1a202c;
+  text-decoration: none;
+}
+
+.testimonial-item {
+    background-color: rgba(23, 30, 43, 0.7);
+    padding: 1rem;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    border-left: 3px solid #81e6d9;
+}
+.testimonial-item p {
+    margin: 0;
+    font-style: italic;
+}

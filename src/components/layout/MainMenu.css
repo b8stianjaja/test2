@@ -1,0 +1,73 @@
+.main-menu-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+  color: white;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+}
+
+.game-title-container {
+  margin-bottom: 4rem;
+}
+
+.game-title {
+  font-family: 'Cormorant Garamond', serif; /* An elegant serif font */
+  font-size: 5rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  margin: 0;
+}
+
+.game-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 0.5rem;
+}
+
+.main-menu-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-item {
+  display: block;
+  margin: 1rem 0;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.2rem;
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 2rem;
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.menu-item:hover, .menu-item.active {
+  color: #81e6d9; /* Accent color */
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: rgba(129, 230, 217, 0.5);
+}
+
+/* Add a subtle animated underline on hover */
+.menu-item::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1px;
+    bottom: 5px;
+    left: 50%;
+    background-color: #81e6d9;
+    transition: all 0.3s ease-out;
+}
+.menu-item:hover::after {
+    width: 60%;
+    left: 20%;
+}

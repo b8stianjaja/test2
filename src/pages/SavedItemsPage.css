@@ -1,0 +1,25 @@
+/* src/pages/SavedItemsPage.css */
+.saved-items-page .beats-grid { /* If you have a global .beats-grid, this might not be needed */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+}
+
+.empty-saved-items {
+  text-align: center;
+  padding: 3rem 1rem;
+  background-color: rgba(17, 24, 39, 0.6);
+  border-radius: 10px;
+  border: 1px solid rgba(71, 85, 105, 0.3);
+  color: #a0aec0;
+}
+
+.empty-saved-items p {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+#saved-items-audio-player {
+  display: none;
+}

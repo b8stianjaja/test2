@@ -1,0 +1,87 @@
+/* src/components/layout/Footer.css */
+.main-footer {
+  background-color: rgba(10, 15, 25, 0.90); /* Very dark, slightly more opaque than before */
+  backdrop-filter: blur(4px); /* Slightly stronger blur */
+  -webkit-backdrop-filter: blur(4px);
+  color: #a0aec0; /* Muted text color */
+  padding: 2rem 1rem; /* Increased padding for better spacing */
+  text-align: center;
+  font-size: 0.9rem;
+  border-top: 1px solid rgba(71, 85, 105, 0.25); /* Slightly more visible border */
+  position: relative; /* Normal document flow, or 'fixed' if you want it always at bottom */
+  /* If fixed:
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  */
+  z-index: 950; /* Below MainMenu if MainMenu is also fixed and has higher z-index */
+}
+
+.footer-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem; /* Space between stacked items */
+}
+
+.footer-socials {
+  margin-bottom: 0.5rem; /* Reduced margin as items are now gapped by flex */
+  display: flex;
+  gap: 1.5rem; /* Space between social icons */
+}
+
+.footer-social-icon {
+  color: #a0aec0;
+  font-size: 1.1rem; /* Slightly larger for text placeholders, adjust if using real icons */
+  text-decoration: none;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.footer-social-icon:hover {
+  color: #81e6d9; /* Thematic accent on hover */
+  transform: scale(1.1);
+}
+
+.copyright-text {
+  margin: 0.25rem 0; /* Tighter margin */
+  font-size: 0.85rem;
+}
+
+.footer-links {
+  margin-top: 0.25rem; /* Tighter margin */
+}
+
+.footer-links a {
+  color: #a0aec0;
+  margin: 0 0.5rem;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #81e6d9;
+  text-decoration: underline;
+}
+
+.footer-link-separator {
+  color: rgba(71, 85, 105, 0.5); /* Muted separator */
+  margin: 0 0.25rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .main-footer {
+    padding: 1.5rem 1rem;
+    font-size: 0.85rem;
+  }
+  .footer-social-icon {
+    font-size: 1rem; /* Adjust if using real icons */
+    margin: 0 0.5rem; /* Adjust spacing */
+  }
+  .copyright-text {
+    font-size: 0.8rem;
+  }
+}

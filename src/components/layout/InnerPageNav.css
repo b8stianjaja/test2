@@ -1,0 +1,104 @@
+/* src/components/layout/InnerPageNav.css */
+.inner-page-nav-header {
+  background-color: rgba(10, 20, 30, 0.8); /* Dark, semi-transparent header bar */
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid rgba(128, 178, 255, 0.2); /* Thematic separator */
+  position: sticky; /* Makes it stick to the top as user scrolls */
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 900; /* Below MainMenu if it were ever to overlap, but high enough */
+  box-sizing: border-box;
+}
+
+.inner-page-nav-header .nav-content {
+  max-width: 1200px; /* Align with your .page-container if needed */
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.return-to-menu-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #c9d2ff;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba(128, 178, 255, 0.3);
+  border-radius: 6px;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.return-to-menu-button:hover {
+  background-color: rgba(128, 178, 255, 0.15);
+  border-color: #a0e0ff;
+  color: #ffffff;
+}
+
+.return-icon {
+  font-size: 1.2em; /* Make icon slightly larger */
+  line-height: 1; /* Helps with vertical alignment */
+  color: #81e6d9; /* Thematic accent for the icon */
+}
+
+.inner-page-title {
+  font-size: 1.75rem; /* Using the .page-title style might be too large for a header */
+  color: #e0e7ff;
+  font-family: 'Cinzel', serif; /* Example: using a thematic heading font */
+  margin: 0; /* Remove default h1 margin */
+  text-align: center; /* If you want it centered relative to its flex space */
+  /* flex-grow: 1; /* Allows title to take available space for centering */
+  /* The design might look better with the title more to the center,
+     and the return button to the left. The spacer helps. */
+}
+
+.nav-spacer {
+    flex-basis: content; /* Takes up same space as return button to help center title */
+    visibility: hidden; /* Keeps space but not visible */
+    width: auto; /* Auto width based on typical button size */
+    /* This is a simple way to balance. For perfect centering with an element on one side,
+       you might need absolute positioning for the title or more complex flex.
+       Alternatively, set a width on the return button and use that for the spacer. */
+}
+/* If return-to-menu-button has a dynamic width, spacer might not perfectly center.
+   A simpler approach for title centering might be:
+.inner-page-nav-header .nav-content { justify-content: center; position: relative; }
+.return-to-menu-button { position: absolute; left: 1.5rem; top: 50%; transform: translateY(-50%); }
+.inner-page-title { text-align: center; width: 100%; }
+   Then remove the nav-spacer. Try what looks best!
+*/
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .inner-page-nav-header {
+    padding: 0.75rem 1rem;
+  }
+  .inner-page-title {
+    font-size: 1.4rem;
+    /* Display title more prominently, or hide it if space is tight */
+  }
+  .return-to-menu-button {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.8rem;
+  }
+  .nav-spacer {
+    display: none; /* May not need spacer if title is smaller or hidden */
+  }
+  .inner-page-nav-header .nav-content {
+    /* On small screens, you might just want button on left, title taking rest of space */
+    justify-content: flex-start; /* Align to start */
+    gap: 1rem; /* Space between button and title */
+  }
+}
+@media (max-width: 480px) {
+    .inner-page-title {
+        font-size: 1.2rem;
+    }
+}

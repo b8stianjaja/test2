@@ -1,0 +1,73 @@
+/* src/components/common/Pagination.css */
+.pagination-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  padding: 1rem 0;
+}
+
+.pagination-list {
+  list-style: none;
+  display: flex;
+  padding: 0;
+  margin: 0;
+  background-color: rgba(17, 24, 39, 0.7); /* Dark panel background */
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  overflow: hidden; /* Ensures rounded corners are clean with borders */
+}
+
+.pagination-item {
+  /* Spacing is handled by button padding and borders */
+}
+
+.pagination-link {
+  color: #a3b3c9; /* Muted text color */
+  background-color: transparent;
+  border: none; /* Remove default button border */
+  border-right: 1px solid rgba(71, 85, 105, 0.3); /* Thematic separator */
+  padding: 12px 18px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  font-size: 0.95rem;
+  font-weight: 500;
+  min-width: 50px; /* Ensure buttons have a decent tap area */
+  text-align: center;
+}
+
+.pagination-item:last-child .pagination-link {
+  border-right: none; /* No border on the very last item */
+}
+
+.pagination-link:hover {
+  background-color: rgba(71, 85, 105, 0.4);
+  color: #e0e7ff;
+}
+
+.pagination-item.active .pagination-link {
+  background-color: #81e6d9; /* Thematic accent for active page */
+  color: #1a202c; /* Dark text on active button */
+  font-weight: bold;
+  cursor: default;
+}
+
+.pagination-item.disabled .pagination-link {
+  color: rgba(71, 85, 105, 0.6); /* Dim disabled buttons */
+  cursor: not-allowed;
+  background-color: transparent;
+}
+
+.pagination-item.disabled .pagination-link:hover {
+  background-color: transparent; /* No hover effect for disabled */
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .pagination-link {
+    padding: 10px 12px;
+    font-size: 0.9rem;
+    min-width: 40px;
+  }
+}
