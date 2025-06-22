@@ -1,68 +1,70 @@
 // src/pages/HomePage.jsx
-import React, { useRef } from 'react'; // Import useRef for audio handling
+import React, { useRef } from 'react';
 import { NavLink } from 'react-router-dom';
-import './HomePage.css';
+import './HomePage.css'; // Linking to the new, final CSS design.
 
 function HomePage() {
+  // Game-style menu labels that map to your website's pages.
   const menuItems = [
-    { path: "/beats", label: "New Game" },
-    { path: "/saved", label: "Load Game" },
-    { path: "/licenses-faq", label: "Config" },
-    { path: "/contact", label: "Exit" }
+    { path: "/beats", label: "new game" },         // Links to the main beats catalog
+    { path: "/saved", label: "load game" },        // Links to saved/favorited beats
+    { path: "/licenses-faq", label: "options" },   // Links to Licenses/FAQ page
+    { path: "/contact", label: "contact" }         // Using Contact as an "Exit" or "Credits" alternative
   ];
 
-  // Create references to our audio elements
   const hoverSoundRef = useRef(null);
   const clickSoundRef = useRef(null);
 
-  // Function to play the hover sound
   const playHoverSound = () => {
     if (hoverSoundRef.current) {
-      hoverSoundRef.current.currentTime = 0; // Rewind to the start
-      hoverSoundRef.current.play();
+      hoverSoundRef.current.currentTime = 0;
+      hoverSoundRef.current.play().catch(e => {});
     }
   };
 
-  // Function to play the click sound
   const playClickSound = () => {
     if (clickSoundRef.current) {
-      clickSoundRef.current.currentTime = 0; // Rewind to the start
-      clickSoundRef.current.play();
+      clickSoundRef.current.currentTime = 0;
+      clickSoundRef.current.play().catch(e => {});
     }
   };
 
   return (
-    <main className="kh-main-menu">
-      {/* Audio elements - place your sound files in the public/audio folder */}
+    <main className="title-screen">
+      {/* Background and overlay elements are handled entirely in CSS for a cleaner component */}
+      
       <audio ref={hoverSoundRef} src="/audio/menu-hover.wav" preload="auto"></audio>
       <audio ref={clickSoundRef} src="/audio/menu-click.wav" preload="auto"></audio>
 
-      <div className="kh-main-menu__logo-area">
-        <img src="/bgr/rl.png" alt="Game Logo" className="kh-main-menu__logo" />
+      {/* Main container for all centered content */}
+      <div className="title-content">
+        <div className="logo-container">
+          <img src="/bgr/rl.png" alt="Artist Logo" className="title-logo" />
+        </div>
+
+        <nav className="main-menu">
+          <ul>
+            {menuItems.map((item, index) => (
+              <li
+                key={item.label}
+                onMouseEnter={playHoverSound}
+                style={{ animationDelay: `${0.2 + index * 0.1}s` }}
+              >
+                <NavLink
+                  to={item.path}
+                  className="menu-link"
+                  onClick={playClickSound}
+                >
+                  {item.label}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+        </nav>
       </div>
 
-      <nav className="kh-main-menu__nav">
-        <ul>
-          {menuItems.map((item, index) => (
-            <li
-              key={item.label}
-              style={{ '--delay': index * 0.15 + 's' }}
-              onMouseEnter={playHoverSound} // Play sound on mouse enter
-            >
-              <NavLink
-                to={item.path}
-                className="kh-main-menu__link"
-                onClick={playClickSound} // Play sound on click/tap
-              >
-                {item.label}
-              </NavLink>
-            </li>
-          ))}
-        </ul>
-      </nav>
-      
-      <footer className="kh-main-menu__footer">
-        © Your Game Studio
+      <footer className="title-footer">
+        <p>© {new Date().getFullYear()} Your Artist Name. All Rights Reserved.</p>
       </footer>
     </main>
   );

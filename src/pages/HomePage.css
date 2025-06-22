@@ -1,186 +1,143 @@
-/* src/pages/HomePage.css */
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap');
+/* src/pages/HomePage.css 
+  Final Design: Polished, Centered, and Professional
+*/
+
+/* A versatile and elegant font suitable for a modern game UI */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap');
 
 :root {
-  --text-color: rgba(200, 215, 255, 0.7);
-  --text-color-active: #ffffff;
-  --glow-color: rgba(255, 255, 255, 0.5);
-  --selector-color: #f0e68c; /* A soft, elegant gold */
+  --text-color: rgba(255, 255, 255, 0.75);
+  --text-hover-color: #ffffff;
+  --glow-color: rgba(180, 220, 255, 0.3);
+  --animation-curve: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.kh-main-menu {
+.title-screen {
   height: 100vh;
   width: 100vw;
   position: fixed;
   top: 0;
   left: 0;
-  background-color: #000; 
+  background-color: #000;
   color: var(--text-color);
-  font-family: 'Cinzel', serif;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 5vh 2rem;
-  box-sizing: border-box;
-}
-
-.kh-main-menu::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background-image: url('/bgr/asg.gif');
+  font-family: 'Montserrat', sans-serif;
+  
+  /* Use the more vibrant background for a strong visual impact */
+  background-image: url('/bgr/gfwcyan.gif');
   background-size: cover;
   background-position: center;
-  animation: slowZoom 45s infinite alternate ease-in-out;
-  z-index: -2;
-}
-@keyframes slowZoom {
-  from { transform: scale(1); }
-  to { transform: scale(1.05); }
+  
+  /* This animation creates a slow, endless, and captivating pan */
+  animation: cinematicPan 60s infinite alternate ease-in-out;
+
+  /* Flexbox is used to center the main content perfectly */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
-/* NEW: Vignette effect to darken corners and add atmosphere */
-.kh-main-menu::after {
+@keyframes cinematicPan {
+  from { background-position: 40% 50%; }
+  to { background-position: 60% 50%; }
+}
+
+/* This overlay adds a vignette and slightly desaturates the background,
+   which pushes the UI forward and creates a more cinematic, focused look. */
+.title-screen::before {
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: radial-gradient(circle, transparent 50%, rgba(0,0,0,0.7) 100%);
-  z-index: -1;
-}
-
-.kh-main-menu > * {
-  position: relative;
+  background: radial-gradient(circle, transparent 50%, rgba(0, 0, 0, 0.6) 100%);
+  backdrop-filter: saturate(80%) brightness(90%);
   z-index: 1;
 }
 
-.kh-main-menu__logo-area {
+.title-content {
+  position: relative;
+  z-index: 2;
+  animation: fadeIn 2s var(--animation-curve) both;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.logo-container {
+  margin-bottom: 2rem;
+}
+
+.title-logo {
+  max-width: 320px;
   width: 100%;
-  height: 25vh;
-  border: 1px dashed rgba(255,255,255,0.1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: rgba(255,255,255,0.2);
+  height: auto;
+  /* A clean, soft drop-shadow to lift the logo from the background */
+  filter: drop-shadow(0 5px 25px rgba(0, 0, 0, 0.5));
 }
 
-.kh-main-menu__nav {
-  width: 100%;
-  max-width: 900px;
-  display: flex;
-  justify-content: flex-end;
-  position: relative; /* For the new light pulse effect */
-}
-
-/* NEW: Pulsing light effect behind the menu for more atmosphere */
-.kh-main-menu__nav::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  right: -5%;
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, rgba(255, 255, 224, 0.05), transparent 70%);
-  border-radius: 50%;
-  transform: translateY(-50%);
-  animation: lightPulse 8s infinite alternate ease-in-out;
-  z-index: -1;
-}
-@keyframes lightPulse {
-  from { transform: translateY(-50%) scale(0.9); opacity: 0.7; }
-  to { transform: translateY(-50%) scale(1.1); opacity: 1; }
-}
-
-
-.kh-main-menu__nav ul {
+.main-menu ul {
   list-style: none;
   padding: 0;
   margin: 0;
-  text-align: right;
 }
 
-.kh-main-menu__nav li {
-  position: relative;
+.main-menu li {
+  /* Animate each menu item in sequence */
   opacity: 0;
-  transform: translateX(20px);
-  animation: fadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-  animation-delay: var(--delay);
-}
-@keyframes fadeIn {
-  to { opacity: 1; transform: translateX(0); }
+  animation: fadeInUp 1s var(--animation-curve) forwards;
 }
 
-.kh-main-menu__link {
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.menu-link {
   display: inline-block;
-  font-size: 1.8rem;
-  font-weight: 700;
   color: var(--text-color);
-  text-decoration: none;
+  text-decoration: none !important;
+  font-size: 2rem;
+  font-weight: 500;
+  letter-spacing: 2px;
   padding: 0.75rem 0;
-  margin: 0.2rem 0;
-  transition: all 0.3s ease;
-  cursor: pointer; /* To show it's clickable */
+  position: relative;
+  transition: all 0.4s var(--animation-curve);
 }
 
-/* HERE IS THE SYMBOL:
-  The symbol on the side is a "Fleur-de-lis" (⚜).
-  It's created using a `::before` pseudo-element on the link.
-  You can change the character in the `content` property below.
-  For example, try `content: '◆';` for a diamond or `content: '→';` for an arrow.
-*/
-.kh-main-menu__link::before {
-  content: '⚜'; 
-  font-family: 'Times New Roman', serif;
+/* Polished hover effect: text becomes brighter, spacing increases,
+   and a subtle glowing line animates underneath. */
+.menu-link:hover {
+  color: var(--text-hover-color);
+  letter-spacing: 3px;
+  transform: scale(1.05);
+}
+
+.menu-link::after {
+  content: '';
   position: absolute;
-  left: -3rem;
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--selector-color);
-  font-size: 1.2em;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  bottom: 0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0%;
+  height: 1px;
+  background-color: var(--text-hover-color);
+  box-shadow: 0 0 10px var(--glow-color);
+  transition: width 0.4s var(--animation-curve);
 }
 
-.kh-main-menu__link:hover,
-.kh-main-menu__link.active {
-  color: var(--text-color-active);
-  text-shadow: 0 0 10px var(--glow-color), 0 0 20px var(--glow-color); /* Enhanced glow */
+.menu-link:hover::after {
+  width: 50%;
 }
 
-.kh-main-menu__link:hover::before,
-.kh-main-menu__link.active::before {
-  opacity: 1;
-}
-
-.kh-main-menu__footer {
+/* The footer is minimal and unobtrusive */
+.title-footer {
+  position: absolute;
+  bottom: 1rem;
+  z-index: 2;
   width: 100%;
   text-align: center;
-  font-size: 0.9rem;
-  font-weight: 400;
-  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.8rem;
   letter-spacing: 1px;
-}
-
-@media (max-width: 767px) {
-  .kh-main-menu__nav {
-    justify-content: center;
-  }
-  .kh-main-menu__nav::before {
-    /* Repositions the light pulse for the centered mobile layout */
-    right: 50%;
-    transform: translate(50%, -50%);
-  }
-
-  .kh-main-menu__nav ul {
-    text-align: center;
-  }
-  
-  .kh-main-menu__link {
-    font-size: 1.5rem;
-  }
-
-  .kh-main-menu__link::before {
-    left: -2.5rem;
-  }
+  color: rgba(255, 255, 255, 0.4);
 }
