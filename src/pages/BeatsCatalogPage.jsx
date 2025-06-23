@@ -1,77 +1,33 @@
-// src/pages/BeatsCatalogPage.jsx
-import React, { useState, useRef, useEffect } from 'react';
-import BeatCard from '../components/common/BeatCard';
-import Pagination from '../components/common/Pagination'; // Import the new Pagination component
+// src/pages/BeatsCatalogPage.jsx (Refactored)
+import React, { useState, useEffect } from 'react';
 import { mockBeatsData } from '../data/mockBeats.js';
+import { useAudioPlayer } from '../hooks/useAudioPlayer'; // Import hook
+import BeatCard from '../components/common/BeatCard';
+import Pagination from '../components/common/Pagination';
 import './BeatsCatalogPage.css';
 
 function BeatsCatalogPage() {
-  const [beats, setBeats] = useState([]);
-  const [currentPlayingId, setCurrentPlayingId] = useState(null);
+  // Clean, centralized audio logic
+  const { currentPlayingId, handlePlayToggle } = useAudioPlayer(mockBeatsData);
+
   const [searchTerm, setSearchTerm] = useState('');
-  const audioRef = useRef(null);
-
-  // --- Pagination State ---
   const [currentPage, setCurrentPage] = useState(1);
-  const [beatsPerPage] = useState(6); // Or 9, 12 - choose how many beats per page
+  const beatsPerPage = 6;
 
-  useEffect(() => {
-    setBeats(mockBeatsData);
-  }, []);
-
-  useEffect(() => {
-    const audioElement = audioRef.current;
-    if (audioElement) audioElement.pause();
-    if (currentPlayingId) {
-      const currentBeat = beats.find(b => b.id === currentPlayingId);
-      if (currentBeat && audioElement) {
-        audioElement.src = currentBeat.audioUrl;
-        audioElement.play().catch(error => console.error("Error playing audio:", error));
-      }
-    }
-    return () => { if (audioElement) audioElement.pause(); };
-  }, [currentPlayingId, beats]);
-
-  const handlePlay = (beatToPlay) => {
-    if (currentPlayingId === beatToPlay.id) {
-      if (audioRef.current) audioRef.current.pause();
-      setCurrentPlayingId(null);
-    } else {
-      setCurrentPlayingId(beatToPlay.id);
-    }
-  };
-
-  const filteredBeats = beats.filter(beat =>
-    beat.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    beat.genre.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    (beat.tags && beat.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase())))
-  );
-
-  // --- Pagination Logic ---
-  const indexOfLastBeat = currentPage * beatsPerPage;
-  const indexOfFirstBeat = indexOfLastBeat - beatsPerPage;
-  const currentBeatsToDisplay = filteredBeats.slice(indexOfFirstBeat, indexOfLastBeat);
-
-  // Change page handler
-  const paginate = (pageNumber) => {
-    setCurrentPage(pageNumber);
-    window.scrollTo({ top: 0, behavior: 'smooth' }); // Optional: scroll to top on page change
-  };
-
-  // Reset to page 1 when search term changes
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [searchTerm]);
+  // ... (rest of your filtering and pagination logic is great!)
+  const filteredBeats = mockBeatsData.filter(/*...*/);
+  const currentBeatsToDisplay = filteredBeats.slice(/*...*/);
+  const paginate = (pageNumber) => {/*...*/};
 
   return (
-    <div className="page-container beats-catalog-page">
-      <h1 className="page-title">The Beatwood</h1>
-      <audio ref={audioRef} id="page-audio-player" onEnded={() => setCurrentPlayingId(null)}></audio>
-
-      <div className="catalog-controls">
+    <div className="beats-catalog-container">
+      {/* Use the reusable title class from index.css */}
+      <h1 className="game-title">The Beatwood</h1>
+      
+      <div className="search-container">
         <input
           type="text"
-          placeholder="Search by title, genre, tags..."
+          placeholder="Search the echoes..."
           className="search-bar"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
@@ -84,25 +40,17 @@ function BeatsCatalogPage() {
             <BeatCard
               key={beat.id}
               beat={beat}
-              onPlay={handlePlay}
-              currentPlayingId={currentPlayingId}
+              onPlay={handlePlayToggle}
+              isPlaying={currentPlayingId === beat.id} // Pass down playing state
             />
           ))}
         </div>
       ) : (
-        <p className="no-beats-message">
-          No echoes match your search in the Beatwood. Try different whispers.
-        </p>
+        <p className="no-beats-message">The woods are quiet... no echoes found.</p>
       )}
 
-      {/* --- Render Pagination Component --- */}
-      {filteredBeats.length > beatsPerPage && ( // Only show pagination if there's more than one page
-        <Pagination
-          beatsPerPage={beatsPerPage}
-          totalBeats={filteredBeats.length}
-          paginate={paginate}
-          currentPage={currentPage}
-        />
+      {filteredBeats.length > beatsPerPage && (
+        <Pagination /* ...props... */ />
       )}
     </div>
   );

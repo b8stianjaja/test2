@@ -30,7 +30,7 @@ export const mockBeatsData = [
       mp3: 34.99,
       wav: 59.99,
     },
-    artworkUrl: '/src/assets/artworks/moonlit.jpg', // Replace with your actual asset path
+    artworkUrl: '/src/assets/artworks/SS1.png', // Replace with your actual asset path
     audioUrl: '/src/assets/audio/moonlit_preview.mp3', // Replace with your actual asset path
     tags: ['night', 'serene', 'trap', 'smooth'],
     description: 'Smooth trap vibes under a canopy of stars, ideal for late-night sessions.'

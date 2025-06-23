@@ -1,116 +1,14 @@
-/* src/pages/LicensesFAQPage.css */
-.licenses-section, .faq-section {
-  background-color: rgba(17, 24, 39, 0.6);
-  padding: 2rem;
-  margin-bottom: 2rem;
-  border-radius: 10px;
-  border: 1px solid rgba(71, 85, 105, 0.3);
-}
-
-.licenses-section h2, .faq-section h2 {
-  font-size: 1.75rem;
-  color: #a3bfef;
-  margin-bottom: 0.5rem;
-}
-.licenses-section .section-intro {
-  color: #a0aec0;
-  margin-bottom: 1.5rem;
-  font-size: 1.05rem;
-  text-align: center;
-}
-
-.licenses-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem;
-}
-
 .license-card {
-  background-color: rgba(23, 30, 43, 0.8);
-  padding: 1.5rem;
-  border-radius: 8px;
-  border: 1px solid rgba(71, 85, 105, 0.4);
-  display: flex;
-  flex-direction: column;
+  background: var(--panel-background);
+  border: var(--panel-border);
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  transition: var(--transition-fast);
+  backdrop-filter: blur(5px);
 }
 
-.license-card h3 {
-  color: #c9d2ff;
-  margin-top: 0;
-  margin-bottom: 0.75rem;
-  font-size: 1.3rem;
-}
-
-.license-price {
-  font-size: 1.5rem;
-  color: #81e6d9; /* Thematic accent for price */
-  font-weight: bold;
-  margin-bottom: 1rem;
-}
-
-.license-card ul {
-  list-style: none; /* Or use a thematic list-style-image */
-  padding: 0;
-  margin-bottom: 1rem;
-  flex-grow: 1; /* Pushes notes to bottom if card height varies */
-}
-
-.license-card li {
-  color: #c5d3e6;
-  margin-bottom: 0.5rem;
-  font-size: 0.9rem;
-  line-height: 1.5;
-}
-.license-card li strong {
-  color: #a3bfef; /* Slightly different color for emphasis */
-}
-
-.license-notes {
-  font-size: 0.85rem;
-  color: #a0aec0;
-  font-style: italic;
-  margin-top: auto; /* Pushes to bottom if flex-grow is on ul */
-  padding-top: 0.5rem;
-  border-top: 1px dashed rgba(71, 85, 105, 0.4);
-}
-
-.faq-item {
-  background-color: rgba(23, 30, 43, 0.7);
-  margin-bottom: 1rem;
-  border-radius: 6px;
-  border: 1px solid rgba(71, 85, 105, 0.4);
-}
-
-.faq-question {
-  background: none;
-  border: none;
-  width: 100%;
-  text-align: left;
-  padding: 1rem;
-  font-size: 1.1rem;
-  color: #c9d2ff;
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.faq-question:hover {
-    background-color: rgba(71, 85, 105, 0.2);
-}
-
-.faq-icon {
-  font-size: 1.2rem;
-  font-weight: bold;
-  transition: transform 0.2s ease;
-}
-.faq-icon.open {
-  transform: rotate(45deg);
-}
-
-.faq-answer {
-  padding: 0 1rem 1rem 1rem;
-  color: #c5d3e6;
-  line-height: 1.7;
-  border-top: 1px solid rgba(71, 85, 105, 0.2);
-  margin-top: 0.5rem; /* Adjust if border is on question or answer */
+.license-card:hover {
+  border-color: var(--color-neon-cyan);
+  box-shadow: var(--glow-cyan);
+  transform: translateY(-5px);
 }
