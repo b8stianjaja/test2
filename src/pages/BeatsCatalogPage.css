@@ -1,18 +1,10 @@
-/* src/pages/BeatsCatalogPage.css (New Style) */
-
-.beats-catalog-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
-}
-
+/* src/pages/BeatsCatalogPage.css */
 .search-container {
   margin-bottom: 3rem;
   display: flex;
   justify-content: center;
 }
 
-/* A more "in-game" search bar */
 .search-bar {
   padding: 15px 25px;
   width: 100%;
@@ -40,8 +32,9 @@
 
 .beats-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 2rem;
+  justify-items: center;
 }
 
 .no-beats-message {

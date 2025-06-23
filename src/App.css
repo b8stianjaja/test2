@@ -1,86 +1,10 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
-/* src/App.css - Add this */
-.content-area.content-hidden-by-menu {
-  /* This class is mostly a marker. Since HomePage is position:fixed and covers
-     the viewport, this main element won't be visible anyway when on path '/'.
-     No specific styles might be needed here unless you have transitions. */
-}
-
-/* Ensure other pages still have space for a potentially fixed MainMenu/Footer if they are shown */
-/* This was in index.css before, might be better here or ensure it's applied appropriately */
-main.content-area:not(.content-hidden-by-menu) {
-  /* If MainMenu and Footer are fixed at the bottom and HAVE A HEIGHT */
-  /* padding-bottom: 120px; /* Example: (MainMenu height + Footer height + some buffer) */
-  /* However, MainMenu.css already positions it fixed. This padding is for scrollable content
-     not to be obscured if MainMenu/Footer were part of the document flow and fixed.
-     If they are always overlays, this might not be strictly necessary or managed differently.
-     For now, let's assume their fixed positioning handles overlap.
-  */
-}
-
 /* src/App.css */
-/* ... your existing .app-container and .content-hidden-by-menu styles ... */
-
-main.content-area.content-with-inner-nav {
-  /* Assuming InnerPageNav is roughly 60-70px tall with padding. Adjust as needed. */
-  padding-top: 80px; /* Provide space for the sticky InnerPageNav */
-  /* Keep other paddings if necessary, or consolidate here */
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-bottom: 20px; /* Default bottom padding */
-  flex-grow: 1;
+.content-area.content-hidden {
+  display: none;
 }
 
-/* If you don't add the .content-with-inner-nav class, modify .content-area directly: */
-/*
-main.content-area {
+/* Default state for the content area */
+.content-area {
   flex-grow: 1;
-  padding: 20px;
-  padding-top: 80px; // Default top padding for all pages with inner nav
+  display: block;
 }
-main.content-area.content-hidden-by-menu {
-  padding-top: 0; // Override for the full-screen game menu
-}
-*/

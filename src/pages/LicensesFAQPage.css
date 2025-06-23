@@ -1,14 +1,134 @@
+/* src/pages/LicensesFAQPage.css */
+
+.licenses-section,
+.faq-section {
+  margin-bottom: 4rem;
+}
+
+.licenses-section h2,
+.faq-section h2 {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  color: var(--color-ui-accent);
+}
+
+.licenses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
 .license-card {
   background: var(--panel-background);
   border: var(--panel-border);
   border-radius: var(--border-radius);
-  padding: 2rem;
+  padding: 1.5rem;
   transition: var(--transition-fast);
   backdrop-filter: blur(5px);
+  display: flex;
+  flex-direction: column;
 }
 
 .license-card:hover {
   border-color: var(--color-neon-cyan);
   box-shadow: var(--glow-cyan);
   transform: translateY(-5px);
+}
+
+.license-card h3 {
+  font-family: var(--font-display);
+  color: var(--color-neon-cyan);
+  margin: 0 0 0.5rem;
+}
+
+.license-price {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--color-text-primary);
+  margin: 0 0 1rem;
+}
+
+.license-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem;
+  flex-grow: 1;
+}
+
+.license-card li {
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+}
+
+.license-card li strong {
+  color: var(--color-text-primary);
+  font-weight: 500;
+}
+
+.license-notes {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  font-style: italic;
+  margin-top: auto;
+}
+
+/* FAQ Styling */
+.faq-item {
+  background: var(--panel-background);
+  border-radius: var(--border-radius);
+  border: var(--panel-border);
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+
+.faq-question {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 1rem 1.5rem;
+  background: transparent;
+  border: none;
+  color: var(--color-text-primary);
+  font-family: var(--font-primary);
+  font-size: 1.1rem;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.faq-question:hover {
+  background-color: rgba(71, 85, 105, 0.2);
+}
+
+.faq-icon {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--color-neon-cyan);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.faq-icon.open {
+  transform: rotate(180deg);
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+}
+
+.faq-answer.open {
+  max-height: 200px; /* Adjust if answers are very long */
+}
+
+.faq-answer p {
+  padding: 0 1.5rem 1.5rem;
+  margin: 0;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
 }

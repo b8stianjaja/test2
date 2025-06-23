@@ -1,36 +1,53 @@
-// src/pages/BeatsCatalogPage.jsx (Refactored)
-import React, { useState, useEffect } from 'react';
+// src/pages/BeatsCatalogPage.jsx
+import React, { useState, useMemo } from 'react';
 import { mockBeatsData } from '../data/mockBeats.js';
-import { useAudioPlayer } from '../hooks/useAudioPlayer'; // Import hook
+import { useAudioPlayer } from '../hooks/useAudioPlayer';
 import BeatCard from '../components/common/BeatCard';
 import Pagination from '../components/common/Pagination';
 import './BeatsCatalogPage.css';
 
 function BeatsCatalogPage() {
-  // Clean, centralized audio logic
   const { currentPlayingId, handlePlayToggle } = useAudioPlayer(mockBeatsData);
-
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const beatsPerPage = 6;
 
-  // ... (rest of your filtering and pagination logic is great!)
-  const filteredBeats = mockBeatsData.filter(/*...*/);
-  const currentBeatsToDisplay = filteredBeats.slice(/*...*/);
-  const paginate = (pageNumber) => {/*...*/};
+  const filteredBeats = useMemo(() => {
+    if (!searchTerm) {
+      return mockBeatsData;
+    }
+    const lowercasedFilter = searchTerm.toLowerCase();
+    return mockBeatsData.filter(beat => {
+      return (
+        beat.title.toLowerCase().includes(lowercasedFilter) ||
+        beat.genre.toLowerCase().includes(lowercasedFilter) ||
+        beat.tags.some(tag => tag.toLowerCase().includes(lowercasedFilter))
+      );
+    });
+  }, [searchTerm]);
+
+  // Pagination logic
+  const indexOfLastBeat = currentPage * beatsPerPage;
+  const indexOfFirstBeat = indexOfLastBeat - beatsPerPage;
+  const currentBeatsToDisplay = filteredBeats.slice(indexOfFirstBeat, indexOfLastBeat);
+
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    window.scrollTo(0, 0); // Scroll to top on page change
+  };
 
   return (
-    <div className="beats-catalog-container">
-      {/* Use the reusable title class from index.css */}
-      <h1 className="game-title">The Beatwood</h1>
-      
+    <>
       <div className="search-container">
         <input
           type="text"
-          placeholder="Search the echoes..."
+          placeholder="Search by title, genre, or tag..."
           className="search-bar"
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onChange={(e) => {
+            setSearchTerm(e.target.value);
+            setCurrentPage(1); // Reset to first page on new search
+          }}
         />
       </div>
 
@@ -41,18 +58,23 @@ function BeatsCatalogPage() {
               key={beat.id}
               beat={beat}
               onPlay={handlePlayToggle}
-              isPlaying={currentPlayingId === beat.id} // Pass down playing state
+              isPlaying={currentPlayingId === beat.id}
             />
           ))}
         </div>
       ) : (
-        <p className="no-beats-message">The woods are quiet... no echoes found.</p>
+        <p className="no-beats-message">The woods are quiet... no echoes match your search.</p>
       )}
 
       {filteredBeats.length > beatsPerPage && (
-        <Pagination /* ...props... */ />
+        <Pagination
+          beatsPerPage={beatsPerPage}
+          totalBeats={filteredBeats.length}
+          paginate={paginate}
+          currentPage={currentPage}
+        />
       )}
-    </div>
+    </>
   );
 }
 

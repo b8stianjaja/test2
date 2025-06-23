@@ -1,0 +1,54 @@
+/* src/index.css */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Cinzel:wght@400;700&display=swap');
+
+:root {
+  /* Fonts */
+  --font-primary: 'Montserrat', sans-serif; /* For body text, UI elements */
+  --font-display: 'Cinzel', serif;         /* For main titles, "game" headings */
+
+  /* Core Colors */
+  --color-background: #0a0f19;
+  --color-text-primary: #e2e8f0;
+  --color-text-secondary: #a0aec0;
+
+  /* Thematic "Game" Colors */
+  --color-neon-cyan: #81e6d9;
+  --color-neon-pink: #ff00ff;
+  --color-ui-accent: #a3bfef;
+
+  /* Glow Effects */
+  --glow-cyan: 0 0 8px var(--color-neon-cyan), 0 0 12px var(--color-neon-cyan), 0 0 16px var(--color-neon-cyan);
+  --glow-pink: 0 0 10px var(--color-neon-pink), 0 0 20px var(--color-neon-pink);
+
+  /* UI Elements */
+  --panel-background: rgba(17, 24, 39, 0.6);
+  --panel-border: 1px solid rgba(71, 85, 105, 0.3);
+  --border-radius: 10px;
+  --transition-fast: all 0.2s ease-in-out;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-primary);
+  background-color: var(--color-background);
+  background-image: url('/bgr/gfwcyan.gif');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  color: var(--color-text-primary);
+}
+
+.page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem 2rem;
+}
+
+.section-intro {
+  text-align: center;
+  font-size: 1.1rem;
+  color: var(--color-text-secondary);
+  max-width: 800px;
+  margin: -1rem auto 2.5rem;
+}

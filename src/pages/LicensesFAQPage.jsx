@@ -1,30 +1,30 @@
 // src/pages/LicensesFAQPage.jsx
 import React, { useState } from 'react';
 import { mockLicenseData, mockFaqData } from '../data/mockLicenses.js';
-import './LicensesFAQPage.css'; // Create this new CSS file
+import './LicensesFAQPage.css';
 
-const FAQItem = ({ faq }) => {
-  const [isOpen, setIsOpen] = useState(false);
+const FAQItem = ({ faq, index }) => {
+  const [isOpen, setIsOpen] = useState(index === 0); // Open the first FAQ by default
   return (
     <div className="faq-item">
       <button className="faq-question" onClick={() => setIsOpen(!isOpen)}>
-        {faq.question}
-        <span className={`faq-icon ${isOpen ? 'open' : ''}`}>{isOpen ? '-' : '+'}</span>
+        <span>{faq.question}</span>
+        <span className={`faq-icon ${isOpen ? 'open' : ''}`}>{isOpen ? '−' : '+'}</span>
       </button>
-      {isOpen && <p className="faq-answer">{faq.answer}</p>}
+      <div className={`faq-answer ${isOpen ? 'open' : ''}`}>
+        <p>{faq.answer}</p>
+      </div>
     </div>
   );
 };
 
 function LicensesFAQPage() {
   return (
-    <div className="page-container licenses-faq-page">
-      <h1 className="page-title">Lore of Licenses & Scrolls of Knowledge</h1>
-
+    <>
       <section className="licenses-section">
         <h2>Understanding Your Echoes (Licenses)</h2>
         <p className="section-intro">
-          Each beat comes with different usage rights. Choose the license that best fits your creative needs and project scope.
+          Each beat comes with different usage rights. Choose the license that best fits your creative journey and project scope.
         </p>
         <div className="licenses-grid">
           {mockLicenseData.map((license) => (
@@ -39,12 +39,9 @@ function LicensesFAQPage() {
                 <li><strong>Music Video:</strong> {license.musicVideo}</li>
                 <li><strong>Radio:</strong> {license.radioBroadcasting}</li>
                 <li><strong>Performances:</strong> {license.livePerformances}</li>
-                <li><strong>Commercial Use:</strong> {license.commercialUse}</li>
                 <li><strong>Credit:</strong> {license.credit}</li>
-                <li><strong>Delivery:</strong> {license.delivery}</li>
               </ul>
-              {license.notes && <p className="license-notes"><em>Note: {license.notes}</em></p>}
-              {/* Add a "Learn More" or "Select" button later */}
+              {license.notes && <p className="license-notes"><em>{license.notes}</em></p>}
             </div>
           ))}
         </div>
@@ -52,11 +49,11 @@ function LicensesFAQPage() {
 
       <section className="faq-section">
         <h2>Scrolls of Knowledge (FAQ)</h2>
-        {mockFaqData.map((faq) => (
-          <FAQItem key={faq.id} faq={faq} />
+        {mockFaqData.map((faq, index) => (
+          <FAQItem key={faq.id} faq={faq} index={index} />
         ))}
       </section>
-    </div>
+    </>
   );
 }
 export default LicensesFAQPage;
