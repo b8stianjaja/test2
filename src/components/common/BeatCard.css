@@ -1,200 +1,158 @@
-/* src/components/common/BeatCard.css */
+/*
+  src/components/common/BeatCard.css
+  - "Studio Card" rewritten for the dark, futuristic theme.
+  - Uses CSS variables from index.css for perfect cohesion.
+  - Replaces heavy 3D tilt with subtle, performant CSS animations.
+*/
 
-/* --- Root Variables for easy theme management --- */
 :root {
-  --background-color: #E0E5EC;
-  --primary-text-color: #56617A;
-  --secondary-text-color: #8C96B1;
-  --highlight-color: #A3B1C6;
-  --shadow-light-color: #FFFFFF;
-  --shadow-dark-color: #A3B1C6;
-  --accent-color: #4A90E2;
-  --accent-text-color: #FFFFFF;
-  --card-border-radius: 20px;
+  /* Local variables for the card */
+  --card-transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-/* --- Base Card Styles (Neumorphic) --- */
 .beat-card {
-  background-color: var(--background-color);
-  width: 300px;
-  border-radius: var(--card-border-radius);
-  box-shadow: 9px 9px 18px var(--shadow-dark-color),
-              -9px -9px 18px var(--shadow-light-color);
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
+  width: 100%; /* Changed to be responsive within the grid */
+  max-width: 320px;
+  position: relative;
+  border-radius: var(--border-radius);
+  
+  /* Thematic "Frosted Panel" look */
+  background: var(--panel-background);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: var(--panel-border);
+  
+  transition: all var(--card-transition);
 }
 
 .beat-card:hover {
   transform: translateY(-5px);
-  box-shadow: 12px 12px 24px var(--shadow-dark-color),
-              -12px -12px 24px var(--shadow-light-color);
+  border-color: var(--color-neon-cyan);
+  box-shadow: var(--glow-cyan);
 }
 
-/* --- Artwork Section --- */
-.beat-card-artwork-wrapper {
+.card-content {
+  border-radius: var(--border-radius);
+  overflow: hidden;
+}
+
+/* === MEDIA ZONE === */
+.media-zone {
   position: relative;
+  aspect-ratio: 16 / 10; /* A slightly taller aspect ratio */
+}
+
+.artwork-wrapper {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.artwork-img {
   width: 100%;
-  padding-top: 100%; /* For 1:1 aspect ratio */
-}
-
-.beat-card-artwork {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  width: calc(100% - 24px);
-  height: calc(100% - 24px);
+  height: 100%;
   object-fit: cover;
-  border-radius: var(--card-border-radius);
-  transition: transform 0.4s ease;
+  transition: transform var(--card-transition);
 }
 
-.beat-card:hover .beat-card-artwork {
-    transform: scale(1.05);
+.beat-card:hover .artwork-img {
+  transform: scale(1.05);
 }
 
-/* --- Play/Pause Button (Neumorphic & Interactive) --- */
-.play-pause-trigger {
+.play-pause-btn {
   position: absolute;
-  bottom: -20px;
-  right: 20px;
-  width: 60px;
-  height: 60px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  width: 54px;
+  height: 54px;
   border-radius: 50%;
-  background: var(--background-color);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(10, 15, 25, 0.7);
+  backdrop-filter: blur(8px);
+  
+  color: var(--color-text-primary);
+  display: grid;
+  place-items: center;
   cursor: pointer;
-  z-index: 5;
-  border: none;
-  box-shadow: 6px 6px 12px var(--shadow-dark-color),
-              -6px -6px 12px var(--shadow-light-color);
-  transition: all 0.3s ease-out;
+  
+  opacity: 0;
+  transition: all var(--card-transition);
 }
 
-.beat-card:hover .play-pause-trigger {
-    bottom: 20px;
+.play-pause-btn svg {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
 }
 
-.play-pause-trigger:hover {
-    box-shadow: 4px 4px 8px var(--shadow-dark-color),
-                -4px -4px 8px var(--shadow-light-color);
+.beat-card:hover .play-pause-btn {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
 }
 
-.play-pause-button {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
+.beat-card.is-playing .play-pause-btn {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  background: var(--color-neon-cyan);
+  color: #1a202c; /* Dark color for icon on bright background */
+}
+
+/* === INFO ZONE === */
+.info-zone {
+  padding: 16px;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: inset 4px 4px 8px var(--shadow-dark-color),
-              inset -4px -4px 8px var(--shadow-light-color);
-  color: var(--primary-text-color);
-  transition: color 0.3s ease;
+  flex-direction: column;
+  gap: 16px;
+  border-top: var(--panel-border);
+  background: rgba(10, 15, 25, 0.8);
 }
 
-.play-pause-trigger:hover .play-pause-button {
-  color: var(--accent-color);
-}
-
-.beat-card.is-playing .play-pause-trigger {
-    bottom: 20px;
-}
-
-.beat-card.is-playing .play-pause-button {
-    color: var(--accent-color);
-    box-shadow: inset 6px 6px 12px var(--shadow-dark-color),
-                inset -6px -6px 12px var(--shadow-light-color);
-}
-
-
-/* --- Card Content --- */
-.beat-card-content {
-  padding: 20px;
-  text-align: left;
-}
-
-.beat-card-header {
-    margin-bottom: 16px;
-}
-
-.beat-card-title {
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: var(--primary-text-color);
+.beat-title {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--color-text-primary);
   margin: 0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.beat-card-producer {
-    font-size: 0.9rem;
-    color: var(--secondary-text-color);
-    font-weight: 500;
+.beat-producer {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  margin: 0;
 }
 
-/* --- Tags (BPM, Key, Genre) --- */
-.beat-card-tags {
+.info-footer {
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 20px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.beat-tags {
+  display: flex;
+  gap: 6px;
+  /* Hide tags if they overflow */
+  overflow: hidden;
+  max-width: 180px; /* Adjust as needed */
 }
 
 .tag {
-  background-color: var(--background-color);
-  padding: 6px 12px;
-  border-radius: 12px;
+  background-color: rgba(71, 85, 105, 0.2);
+  border: 1px solid rgba(71, 85, 105, 0.3);
+  padding: 4px 10px;
+  border-radius: 6px;
   font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--secondary-text-color);
-  box-shadow: 4px 4px 8px var(--shadow-dark-color),
-              -4px -4px 8px var(--shadow-light-color);
-  transition: all 0.3s ease;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
 }
 
-.tag:hover {
-    color: var(--primary-text-color);
-    box-shadow: 2px 2px 4px var(--shadow-dark-color),
-              -2px -2px 4px var(--shadow-light-color);
-}
-
-/* --- Footer & Purchase Button --- */
-.beat-card-footer {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-}
-
-.purchase-button {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background-color: var(--accent-color);
-  color: var(--accent-text-color);
-  font-size: 1rem;
-  font-weight: 600;
-  border: none;
-  border-radius: 12px;
-  padding: 12px 20px;
-  cursor: pointer;
-  box-shadow: 6px 6px 12px var(--shadow-dark-color),
-              -6px -6px 12px var(--shadow-light-color);
-  transition: all 0.3s ease;
-}
-
-.purchase-button:hover {
-  background-color: #357ABD; /* A slightly darker accent for hover */
-  transform: translateY(-2px);
-  box-shadow: 8px 8px 16px var(--shadow-dark-color),
-              -8px -8px 16px var(--shadow-light-color);
-}
-
-.purchase-button svg {
-  width: 20px;
-  height: 20px;
+.price-tag {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-neon-cyan);
+  text-shadow: 0 0 5px var(--color-neon-cyan);
 }

@@ -11,9 +11,14 @@ function InnerPageNav({ pageTitle }) {
           <span className="return-icon">&laquo;</span>
           <span>Return to Menu</span>
         </Link>
-        <h1 className="inner-page-title">{pageTitle}</h1>
-        {/* A spacer to help with centering the title */}
-        <div className="nav-spacer"></div>
+        
+        {/* FIX: The title and spacer are now only rendered if a pageTitle is provided. */}
+        {pageTitle && (
+          <>
+            <h1 className="inner-page-title">{pageTitle}</h1>
+            <div className="nav-spacer"></div>
+          </>
+        )}
       </div>
     </header>
   );

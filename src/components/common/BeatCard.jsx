@@ -1,69 +1,106 @@
 // src/components/common/BeatCard.jsx
-import React from 'react';
-import './BeatCard.css'; // Linking to the new, beautified CSS
+import React, { useRef, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import './BeatCard.css';
 
-// A sleeker, more modern Play icon
-const PlayIcon = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M8 5V19L19 12L8 5Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-);
+const PlayIcon = () => ( <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg> );
+const PauseIcon = () => ( <svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" /></svg> );
 
-// A sleeker, more modern Pause icon
-const PauseIcon = () => (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M6 18V6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        <path d="M18 18V6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-    </svg>
-);
+const BeatCard = React.memo(function BeatCard({ beat, onPlay, currentPlayingId }) {
+  if (!beat) return null;
 
-// An icon for the purchase button for better UX
-const PurchaseIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M3 10H21M7 15H9M12 15H14M3 6C3 4.89543 3.89543 4 5 4H19C20.1046 4 21 4.89543 21 6V18C21 19.1046 20.1046 20 19 20H5C3.89543 20 3 19.1046 3 18V6Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-);
-
-
-function BeatCard({ beat, onPlay, currentPlayingId }) {
+  const cardRef = useRef(null);
   const isPlaying = currentPlayingId === beat.id;
+
+  useEffect(() => {
+    const card = cardRef.current;
+    if (!card) return;
+
+    const handleMouseMove = (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      
+      const rotateX = (y - centerY) / 20;
+      const rotateY = (centerX - x) / 20;
+
+      card.style.setProperty('--rotate-x', `${rotateX}deg`);
+      card.style.setProperty('--rotate-y', `${rotateY}deg`);
+    };
+
+    const handleMouseLeave = () => {
+      card.style.setProperty('--rotate-x', '0deg');
+      card.style.setProperty('--rotate-y', '0deg');
+    };
+
+    card.addEventListener('mousemove', handleMouseMove);
+    card.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      card.removeEventListener('mousemove', handleMouseMove);
+      card.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, []);
 
   const handlePlayToggle = (e) => {
     e.stopPropagation();
     onPlay(beat);
   };
 
-  const displayPrice = beat.price.mp3 ? `$${beat.price.mp3}` : 'N/A';
+  const displayPrice = beat.price?.mp3 ? `$${beat.price.mp3}` : 'FREE';
 
   return (
-    <div className={`beat-card ${isPlaying ? 'is-playing' : ''}`}>
-      <div className="beat-card-artwork-wrapper">
-        <img src={beat.artworkUrl} alt={beat.title} className="beat-card-artwork" />
-        <button onClick={handlePlayToggle} className="play-pause-trigger">
-          <div className="play-pause-button">
-            {isPlaying ? <PauseIcon /> : <PlayIcon />}
+    <div
+      ref={cardRef}
+      className={`beat-card ${isPlaying ? 'is-playing' : ''}`}
+    >
+      <div className="card-content">
+        <div className="media-zone">
+          <div className="artwork-wrapper">
+            <img src={beat.artworkUrl} alt={beat.title} className="artwork-img" />
           </div>
-        </button>
-      </div>
-      <div className="beat-card-content">
-        <div className="beat-card-header">
-            <h3 className="beat-card-title">{beat.title}</h3>
-            <p className="beat-card-producer">{beat.producer || 'N/A'}</p>
-        </div>
-        <div className="beat-card-tags">
-          <span className="tag">{beat.bpm} BPM</span>
-          <span className="tag">{beat.key}</span>
-          <span className="tag">{beat.genre}</span>
-        </div>
-        <div className="beat-card-footer">
-          <button className="purchase-button">
-            <PurchaseIcon />
-            <span>{displayPrice}</span>
+          <button 
+            onClick={handlePlayToggle} 
+            className="play-pause-btn"
+            aria-label={isPlaying ? `Pause ${beat.title}` : `Play ${beat.title}`}
+          >
+            {isPlaying ? <PauseIcon /> : <PlayIcon />}
           </button>
+        </div>
+        <div className="info-zone">
+          <div className="info-header">
+            <h3 className="beat-title">{beat.title}</h3>
+            <p className="beat-producer">{beat.producer || 'Anonymous'}</p>
+          </div>
+          <div className="info-footer">
+            <div className="beat-tags">
+              {beat.bpm && <span className="tag">{beat.bpm} BPM</span>}
+              {beat.key && <span className="tag">{beat.key}</span>}
+            </div>
+            <div className="price-tag">{displayPrice}</div>
+          </div>
         </div>
       </div>
     </div>
   );
-}
+});
+
+BeatCard.propTypes = {
+  beat: PropTypes.shape({
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    title: PropTypes.string.isRequired,
+    artworkUrl: PropTypes.string.isRequired,
+    producer: PropTypes.string,
+    bpm: PropTypes.number,
+    key: PropTypes.string,
+    price: PropTypes.shape({
+      mp3: PropTypes.number,
+    }),
+  }).isRequired,
+  onPlay: PropTypes.func.isRequired,
+  currentPlayingId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+};
 
 export default BeatCard;

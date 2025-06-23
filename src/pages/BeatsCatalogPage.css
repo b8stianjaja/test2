@@ -1,46 +1,194 @@
-/* src/pages/BeatsCatalogPage.css */
-.search-container {
-  margin-bottom: 3rem;
-  display: flex;
-  justify-content: center;
+/*
+  src/pages/BeatsCatalogPage.css
+  - FIXES the layout shift bug on the filter buttons.
+  - ENHANCES the style of the sidebar, inputs, and pagination.
+  - Adds subtle animations for a more premium feel.
+*/
+
+/* --- Page Entrance Animation --- */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.search-bar {
-  padding: 15px 25px;
-  width: 100%;
-  max-width: 600px;
+/* --- Main Layout --- */
+.catalog-layout-container {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  grid-template-areas: "sidebar content";
+  gap: 2.5rem;
+  align-items: flex-start;
+  padding-top: 2rem; /* Spacing from top of viewport */
+  /* Animation for the whole layout */
+  animation: fadeInUp 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+/* --- 1. Enhanced Sidebar --- */
+.catalog-sidebar {
+  grid-area: sidebar;
+  background: var(--panel-background);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border: var(--panel-border);
   border-radius: var(--border-radius);
-  background-color: rgba(10, 15, 25, 0.8);
+  padding: 1.5rem 1.75rem;
+  position: sticky;
+  top: 2.5rem;
+}
+
+.filter-group {
+  margin-bottom: 2.25rem;
+}
+
+.filter-group:last-child {
+  margin-bottom: 0;
+}
+
+.filter-title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+  color: var(--color-ui-accent);
+  margin: 0 0 1.25rem 0;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(71, 85, 105, 0.3);
+}
+
+/* --- 2. Enhanced Inputs --- */
+.search-bar,
+.sort-select {
+  width: 100%;
+  padding: 14px 18px;
+  background-color: rgba(10, 15, 25, 0.9);
+  border: 1px solid var(--panel-border);
+  border-radius: 8px;
   color: var(--color-text-primary);
-  font-size: 1.1rem;
   font-family: var(--font-primary);
-  outline: none;
+  font-size: 1rem;
   transition: var(--transition-fast);
-  backdrop-filter: blur(5px);
 }
 
 .search-bar::placeholder {
   color: var(--color-text-secondary);
-  opacity: 0.7;
 }
 
-.search-bar:focus {
+.search-bar:focus,
+.sort-select:focus {
   border-color: var(--color-neon-cyan);
   box-shadow: var(--glow-cyan);
+  outline: none;
+}
+
+.sort-select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 40px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2381e6d9' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  cursor: pointer;
+}
+
+/* --- 3. Bug-Fixed & Polished Filter Buttons --- */
+.filter-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.filter-button {
+  background-color: transparent;
+  /* FIX: Ensure border is always present to prevent layout shift */
+  border: 1px solid var(--panel-border);
+  color: var(--color-text-secondary);
+  padding: 8px 16px;
+  border-radius: 18px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  /* FIX: Define transform here so it can transition smoothly */
+  transform: translateY(0);
+  transition: all 0.2s ease;
+}
+
+.filter-button:hover {
+  border-color: var(--color-ui-accent);
+  color: var(--color-text-primary);
+  transform: translateY(-2px); /* Lift on hover */
+}
+
+.filter-button.active {
+  background-color: var(--color-neon-cyan);
+  color: #1a202c;
+  border-color: var(--color-neon-cyan);
+  font-weight: 700;
+  box-shadow: var(--glow-cyan);
+  transform: translateY(0); /* Return to original position when active */
+}
+
+/* --- Main Content Grid --- */
+.catalog-main-content {
+  grid-area: content;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
 .beats-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 2rem;
-  justify-items: center;
+  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+  gap: 2.5rem;
 }
 
 .no-beats-message {
   text-align: center;
   font-size: 1.2rem;
-  font-family: var(--font-display);
   color: var(--color-text-secondary);
   padding: 4rem 0;
+}
+
+/* --- 4. Themed Pagination --- */
+.pagination-nav {
+  margin-top: 1.5rem; /* Reduced top margin */
+  padding: 1rem 0;
+}
+
+.pagination-list {
+  background-color: var(--panel-background);
+  border: var(--panel-border);
+}
+
+.pagination-link {
+  color: var(--color-text-secondary);
+  border-right: var(--panel-border);
+  font-weight: 600;
+}
+
+.pagination-link:hover {
+  background-color: rgba(71, 85, 105, 0.4);
+  color: var(--color-text-primary);
+}
+
+.pagination-item.active .pagination-link {
+  background-color: var(--color-neon-cyan);
+  color: #1a202c;
+  box-shadow: var(--glow-cyan);
+}
+
+.pagination-item.disabled .pagination-link {
+  color: rgba(71, 85, 105, 0.5);
+}
+
+/* --- Responsive Layout --- */
+@media (max-width: 992px) {
+  .catalog-layout-container {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "content"
+      "sidebar";
+    gap: 2.5rem;
+  }
+  .catalog-sidebar {
+    position: static;
+  }
 }
